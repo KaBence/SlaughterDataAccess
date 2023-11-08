@@ -3,9 +3,17 @@ option java_multiple_files = true;
 
 package slaughter;
 
+message DTODate{
+  int32 day = 1;
+  int32 month = 2;
+  int32 year = 3;
+}
+
 message DTOAnimal{
   int32 id = 1;
   double weight = 2;
+  DTODate dod = 3;
+  int32 farm = 4;
 }
 
 message GetAnimalReq{
@@ -34,8 +42,10 @@ message PutAnimalRes{
 
 
 message DTOAnimalPart{
-  string name = 1;
-  int32 animalId = 2;
+  int32 id = 1;
+  string name = 2;
+  double weight = 3;
+  int32 animalId = 4;
 }
 
 

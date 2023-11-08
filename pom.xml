@@ -27,6 +27,13 @@
       <artifactId>javax.annotation-api</artifactId>
       <version>1.3.2</version>
     </dependency>
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>system</scope>
+      <version>1.0</version>
+      <systemPath>${basedir}\src\lib\postgresql.jar</systemPath>
+    </dependency>
   </dependencies>
   <build>
     <extensions>

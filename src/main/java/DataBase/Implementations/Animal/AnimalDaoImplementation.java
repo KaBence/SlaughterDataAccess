@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class AnimalDaoImplementation implements AnimalDao {
 
-    /*
+
     public AnimalDaoImplementation(){
         try{
             DriverManager.registerDriver(new org.postgresql.Driver());
@@ -29,10 +29,18 @@ public class AnimalDaoImplementation implements AnimalDao {
                 "postgres", "password");
     }
 
-     */
+
     @Override
     public String saveAnimal(Animal animal)
     {
+        if (animal == null)
+        {
+            return DataBaseConnection.MANDATORY;
+        }
+        else
+        {
+
+        }
         return DataBaseConnection.ALREADY;
     }
 
