@@ -15,6 +15,12 @@ public class Animal {
         this.farm = farm;
     }
 
+    public Animal(double weight, Date dod, int farm) {
+        this.weight = weight;
+        this.dod = dod;
+        this.farm = farm;
+    }
+
     public Date getDod() {
         return dod;
     }

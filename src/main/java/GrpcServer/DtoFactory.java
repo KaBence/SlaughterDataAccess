@@ -43,7 +43,7 @@ public class DtoFactory {
     }
 
     public static Animal toAnimal(DTOAnimal x) {
-        return new Animal(x.getId(), x.getWeight(), toDate(x.getDod()), x.getFarm());
+        return new Animal (x.getWeight(), toDate(x.getDod()), x.getFarm());
     }
 
     public static DTOAnimalPart toDtoAnimalPart(AnimalPart x) {
