@@ -1,0 +1,58 @@
+syntax = "proto3";
+option java_multiple_files = true;
+
+package slaughter;
+
+message DTOAnimal{
+  int32 id = 1;
+  double weight = 2;
+}
+
+message GetAnimalsReq{
+
+}
+
+message GetAnimalsRes{
+  repeated DTOAnimal ominous=1;
+}
+
+message PutAnimalReq{
+  DTOAnimal ominous=1;
+}
+
+message PutAnimalRes{
+  string resp=1;
+}
+
+
+message DTOAnimalPart{
+  string name = 1;
+  int32 animalId = 2;
+}
+
+
+message GetAnimalPartsReq{
+
+}
+
+message GetAnimalPartsRes{
+  repeated DTOAnimalPart ominous=1;
+}
+
+message PutAnimalPartReq{
+  DTOAnimalPart ominous=1;
+}
+
+message PutAnimalPartRes{
+  string resp=1;
+}
+
+service SlaughterService{
+  rpc getAnimals(GetAnimalsReq) returns (GetAnimalsRes);
+
+  rpc putAnimal(PutAnimalReq) returns (PutAnimalRes);
+
+  rpc getAnimalParts(GetAnimalPartsReq) returns (GetAnimalPartsRes);
+
+  rpc putAnimalPart(PutAnimalPartReq) returns (PutAnimalPartRes);
+}
