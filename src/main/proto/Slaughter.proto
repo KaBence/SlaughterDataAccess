@@ -8,6 +8,14 @@ message DTOAnimal{
   double weight = 2;
 }
 
+message GetAnimalReq{
+  int32 id = 1;
+}
+
+message GetAnimalRes{
+  repeated DTOAnimal ominous=1;
+}
+
 message GetAnimalsReq{
 
 }
@@ -48,6 +56,8 @@ message PutAnimalPartRes{
 }
 
 service SlaughterService{
+  rpc getAnimal(GetAnimalReq) returns (GetAnimalRes);
+
   rpc getAnimals(GetAnimalsReq) returns (GetAnimalsRes);
 
   rpc putAnimal(PutAnimalReq) returns (PutAnimalRes);

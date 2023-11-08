@@ -1,19 +1,15 @@
-package DataBase.Implementations.Animal;
+package DataBase.Implementations.AnimalPart;
 
-import DataBase.DAOs.Animal.AnimalDao;
+import DataBase.DAOs.AnimalPart.AnimalPartDao;
 import DataBase.DataBaseConnection;
-import Domain.Animal;
-import slaughter.DTOAnimal;
+import Domain.AnimalPart;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class AnimalDaoImplementation implements AnimalDao {
+public class AnimalPartDaoImplementation implements AnimalPartDao {
 
     /*
-    public AnimalDaoImplementation(){
+    public AnimalPartDaoImplementation(){
         try{
             DriverManager.registerDriver(new org.postgresql.Driver());
         }
@@ -31,18 +27,12 @@ public class AnimalDaoImplementation implements AnimalDao {
 
      */
     @Override
-    public String saveAnimal(Animal animal)
-    {
+    public String saveAnimalPart(AnimalPart animalPart) {
         return DataBaseConnection.ALREADY;
     }
 
     @Override
-    public Animal getAnimal(int id) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Animal> getAllAnimals() {
+    public ArrayList<AnimalPart> getAllAnimalParts() {
         return null;
     }
 }
