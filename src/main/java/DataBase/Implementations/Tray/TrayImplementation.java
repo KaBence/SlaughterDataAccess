@@ -51,11 +51,21 @@ public class TrayImplementation  implements TrayDao {
         else{
             try(Connection connection= getConnection()) {
            int id=getTray(trayId).getId();
-                PreparedStatement ps= connection.prepareStatement("UPDATE AnimalPart SET tray_id=? WHERE p_id=?");
-                ps.setInt(1, id);
-                ps.setInt(2,animalPart.getId());
-                ps.executeUpdate();
-                return DataBaseConnection.SUCCESS;
+           //here goes method for getttig all AnimalParts from the same tray and chcecking the name of said animal part
+              ArrayList<AnimalPart> currentParts= getAllAnimalPartsFromTheTray(trayId);
+              if(currentParts.get(currentParts.size()-1).getName().equals(animalPart.getName())){
+                  PreparedStatement ps= connection.prepareStatement("UPDATE AnimalPart SET tray_id=? WHERE p_id=?");
+
+                  ps.setInt(1, id);
+                  ps.setInt(2,animalPart.getId());
+                  ps.executeUpdate();
+                  return DataBaseConnection.SUCCESS;
+              }
+              else{
+                  return DataBaseConnection.ERROR;
+              }
+
+
             } catch (SQLException e) {
                 return DataBaseConnection.ERROR;
             }
@@ -63,7 +73,7 @@ public class TrayImplementation  implements TrayDao {
     }
 
     @Override
-    public String takeFromTray(int animalpartId, int packageId) {
+    public String takeFromTray(int trayId,int animalpartId, int packageId) {
         if(packageId==0){
             return  DataBaseConnection.MANDATORY;
         }
@@ -72,20 +82,20 @@ public class TrayImplementation  implements TrayDao {
         }
         else{
             try(Connection connection=getConnection()) {
-                if(){
-                PreparedStatement preparedStatement= connection.prepareStatement("UPDATE")}
-                else{
+                ArrayList<AnimalPart> currentParts= getAllAnimalPartsFromTheTray(trayId);
 
-                }
-
+//this removes the trayId from certain AnimalPart -takes it away from tray
                 PreparedStatement ps= connection.prepareStatement("UPDATE AnimalPart SET tray_id=? WHERE p_id=? ");
                 ps.setInt(1,0);
                 ps.setInt(2,animalpartId);
+                ps.executeUpdate();
+                return DataBaseConnection.SUCCESS;
 
             } catch (SQLException e) {
                 return DataBaseConnection.ERROR;
             }
         }
+
     }
 
     @Override
@@ -104,6 +114,28 @@ public class TrayImplementation  implements TrayDao {
             return trays;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public ArrayList<AnimalPart> getAllAnimalPartsFromTheTray(int id) {
+        ArrayList<AnimalPart> animalPartsFromTheSameTray = new ArrayList<>();
+        try(Connection connection=getConnection()){
+            PreparedStatement ps= connection.prepareStatement("SELECT * FROM AnimalPart WHERE tray_id=?");
+            ps.setInt(1,id);
+            ResultSet rs= ps.executeQuery();
+            while(rs.next()){
+                int itemId= rs.getInt("p_id");
+                String itemName= rs.getString("anm_pt_name");
+                double weight= rs.getDouble("weight");
+                int animalId=rs.getInt("anm_id");
+                int trayId=rs.getInt("tray_id");
+
+                animalPartsFromTheSameTray.add(new AnimalPart(itemId,itemName,weight,animalId,trayId));
+            }
+            return animalPartsFromTheSameTray;
+        } catch (SQLException e) {
             return null;
         }
     }
