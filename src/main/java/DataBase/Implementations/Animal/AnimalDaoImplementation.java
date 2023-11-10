@@ -36,7 +36,7 @@ public class AnimalDaoImplementation implements AnimalDao {
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO Animal(weight,dateOfDeath,farm) VALUES(?,?,?)");
                 ps.setDouble(1, animal.getWeight());
                 ps.setDate(2, dod);
-                ps.setInt(3, animal.getId());
+                ps.setInt(3, animal.getFarm());
                 ps.executeUpdate();
                 return DataBaseConnection.SUCCESS;
             } catch (SQLException e) {
