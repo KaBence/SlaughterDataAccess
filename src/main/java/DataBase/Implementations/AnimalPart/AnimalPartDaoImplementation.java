@@ -21,7 +21,7 @@ public class AnimalPartDaoImplementation implements AnimalPartDao {
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/postgres?currentSchema=distributionsystem",
+                "jdbc:postgresql://localhost:5432/postgres?currentSchema=slaughterhouse",
                 "postgres", "password");
     }
 
@@ -61,6 +61,7 @@ public class AnimalPartDaoImplementation implements AnimalPartDao {
             }
             return list;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return null;
         }
     }
