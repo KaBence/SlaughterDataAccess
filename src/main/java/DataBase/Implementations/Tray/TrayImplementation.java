@@ -2,6 +2,7 @@ package DataBase.Implementations.Tray;
 
 import DataBase.DAOs.Tray.TrayDao;
 import DataBase.DataBaseConnection;
+import Domain.Animal;
 import Domain.AnimalPart;
 import Domain.Tray;
 
@@ -23,22 +24,13 @@ public class TrayImplementation  implements TrayDao {
     }
     @Override
     public Tray getTray(int id) {
-        ArrayList<Tray> trays= new ArrayList<>();
-        try(Connection connection= getConnection()){
-            PreparedStatement ps= connection.prepareStatement("SELECT * FROM TRAY");
-            ResultSet rs= ps.executeQuery();
-            while(rs.next()){
-                int trayId = rs.getInt("tray_id");
-                double maxWeight= rs.getDouble("maxWeight");
-                int oneKindPackageId= rs.getInt("OneKindPackege_id");
-                int HalfAnAnimalPackage= rs.getInt("HalfAnAnimalPackage_id");
-                trays.add(new Tray(trayId, maxWeight,oneKindPackageId, HalfAnAnimalPackage));
+        ArrayList<Tray> list = getAllTrays();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() == id) {
+                return list.get(i);
             }
-            return trays.get(id);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
         }
+        return null;
     }
     @Override
     public String putIntoTray(AnimalPart animalPart, int trayId) {

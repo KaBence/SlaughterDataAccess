@@ -2,8 +2,10 @@ package GrpcServer;
 
 import DataBase.Implementations.Animal.AnimalDaoImplementation;
 import DataBase.Implementations.AnimalPart.AnimalPartDaoImplementation;
+import DataBase.Implementations.Tray.TrayImplementation;
 import Domain.Animal;
 import Domain.AnimalPart;
+import Domain.Tray;
 import io.grpc.stub.StreamObserver;
 import slaughter.*;
 
@@ -14,9 +16,12 @@ import static GrpcServer.DtoFactory.*;
 public class SlaughterGrpcServiceImplementation extends SlaughterServiceGrpc.SlaughterServiceImplBase {
     private ArrayList<Animal> allAnimals;
     private ArrayList<AnimalPart> allAnimalParts;
+    private ArrayList<Tray> allTrays;
 
     private AnimalDaoImplementation animalDao;
     private AnimalPartDaoImplementation animalPartDao;
+    private TrayImplementation trayDao;
+
 
 
     public SlaughterGrpcServiceImplementation() {
@@ -24,6 +29,8 @@ public class SlaughterGrpcServiceImplementation extends SlaughterServiceGrpc.Sla
         this.allAnimalParts = new ArrayList<>();
         this.animalDao = new AnimalDaoImplementation();
         this.animalPartDao = new AnimalPartDaoImplementation();
+        this.allTrays= new ArrayList<>();
+        this.trayDao= new TrayImplementation();
     }
 
     @Override
@@ -87,4 +94,28 @@ public class SlaughterGrpcServiceImplementation extends SlaughterServiceGrpc.Sla
         responseObserver.onNext(res);
         responseObserver.onCompleted();
     }
+    //I need to add Tray methods in here I guess
+
+    public void getTray(GetTrayReq request, StreamObserver<GetTrayRes> responseObserver) {
+        Tray x = trayDao.getTray(request.getId());
+        GetTrayRes res = GetTrayRes.newBuilder()
+                .addOminous(toDtoTray(x))
+                .build();
+
+        responseObserver.onNext(res);
+        responseObserver.onCompleted();}
+    //HERE I NEED TO FINISH CHANGING THE METHOD
+    public void putTray(PutTrayReq request, StreamObserver<PutTrayRes> responseObserver) {
+        Tray temp = toTray(request.getOminous());
+
+        String database = animalDao.saveAnimal(temp);
+        System.out.println(temp.getId());
+        PutAnimalRes res = PutAnimalRes.newBuilder()
+                .setResp(database)
+                .build();
+
+        responseObserver.onNext(res);
+        responseObserver.onCompleted();
+    }
 }
+

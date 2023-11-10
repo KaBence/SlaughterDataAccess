@@ -38,4 +38,8 @@ public class AnimalPart {
     public int getAnimalId() {
         return animalId;
     }
+
+    public int getTrayId() {
+        return trayId;
+    }
 }
