@@ -5,6 +5,8 @@ import DataBase.DataBaseConnection;
 import Domain.Animal;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,7 +36,7 @@ public class AnimalDaoImplementation implements AnimalDao {
             try (Connection connection = getConnection()) {
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO Animal(weight,dateOfDeath,farm) VALUES(?,?,?)");
                 ps.setDouble(1, animal.getWeight());
-                ps.setString(2, animal.getDod());
+                ps.setDate(2, convertToSQLDate(animal.getDod()));
                 ps.setInt(3, animal.getFarm());
                 ps.executeUpdate();
                 return DataBaseConnection.SUCCESS;
@@ -72,6 +74,19 @@ public class AnimalDaoImplementation implements AnimalDao {
             }
             return list;
         } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    private java.sql.Date convertToSQLDate(String date)
+    {
+        try {
+            SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date date1 = sdf1.parse(date);
+            return new java.sql.Date(date1.getTime());
+        }
+        catch (ParseException e){
+            System.out.println(e.getMessage());
             return null;
         }
     }

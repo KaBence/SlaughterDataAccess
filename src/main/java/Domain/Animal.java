@@ -1,6 +1,5 @@
 package Domain;
 
-import java.util.Date;
 
 public class Animal {
     private int id;
