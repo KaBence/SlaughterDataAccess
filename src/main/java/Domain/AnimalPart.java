@@ -13,6 +13,12 @@ public class AnimalPart {
         this.animalId = animalId;
     }
 
+    public AnimalPart(String name, double weight, int animalId) {
+        this.name = name;
+        this.weight = weight;
+        this.animalId = animalId;
+    }
+
     public int getId() {
         return id;
     }
