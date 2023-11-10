@@ -3,16 +3,11 @@ option java_multiple_files = true;
 
 package slaughter;
 
-message DTODate{
-  int32 day = 1;
-  int32 month = 2;
-  int32 year = 3;
-}
 
 message DTOAnimal{
   int32 id = 1;
   double weight = 2;
-  DTODate dod = 3;
+  string dod = 3;
   int32 farm = 4;
 }
 

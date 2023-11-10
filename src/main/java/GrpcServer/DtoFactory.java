@@ -4,32 +4,17 @@ import Domain.Animal;
 import Domain.AnimalPart;
 import slaughter.DTOAnimal;
 import slaughter.DTOAnimalPart;
-import slaughter.DTODate;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DtoFactory {
 
-
-    public static Date toDate(DTODate x) {
-
-        return new Date(x.getDay(), x.getMonth(), x.getYear());
-    }
-
-    public static DTODate toDtoDate(Date x) {
-        return DTODate.newBuilder()
-                .setDay(x.getDay())
-                .setMonth(x.getMonth())
-                .setYear(x.getYear())
-                .build();
-    }
 
     public static DTOAnimal toDtoAnimal(Animal x) {
         return DTOAnimal.newBuilder()
                 .setId(x.getId())
                 .setWeight(x.getWeight())
-                .setDod(toDtoDate(x.getDod()))
+                .setDod(x.getDod())
                 .setFarm(x.getFarm())
                 .build();
     }
@@ -43,7 +28,7 @@ public class DtoFactory {
     }
 
     public static Animal toAnimal(DTOAnimal x) {
-        return new Animal (x.getWeight(), toDate(x.getDod()), x.getFarm());
+        return new Animal (x.getWeight(), x.getDod(), x.getFarm());
     }
 
     public static DTOAnimalPart toDtoAnimalPart(AnimalPart x) {

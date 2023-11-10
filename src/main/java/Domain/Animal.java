@@ -5,23 +5,23 @@ import java.util.Date;
 public class Animal {
     private int id;
     private double weight;
-    private Date dod;
+    private String dod;
     private int farm;
 
-    public Animal(int id, double weight, Date dod, int farm) {
+    public Animal(int id, double weight, String dod, int farm) {
         this.id = id;
         this.weight = weight;
         this.dod = dod;
         this.farm = farm;
     }
 
-    public Animal(double weight, Date dod, int farm) {
+    public Animal(double weight, String dod, int farm) {
         this.weight = weight;
         this.dod = dod;
         this.farm = farm;
     }
 
-    public Date getDod() {
+    public String getDod() {
         return dod;
     }
 

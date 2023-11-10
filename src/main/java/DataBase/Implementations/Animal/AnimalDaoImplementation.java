@@ -31,11 +31,10 @@ public class AnimalDaoImplementation implements AnimalDao {
         if (animal == null) {
             return DataBaseConnection.MANDATORY;
         } else {
-            java.sql.Date dod = new java.sql.Date(animal.getDod().getDay(), animal.getDod().getMonth(), animal.getDod().getYear());
             try (Connection connection = getConnection()) {
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO Animal(weight,dateOfDeath,farm) VALUES(?,?,?)");
                 ps.setDouble(1, animal.getWeight());
-                ps.setDate(2, dod);
+                ps.setString(2, animal.getDod());
                 ps.setInt(3, animal.getFarm());
                 ps.executeUpdate();
                 return DataBaseConnection.SUCCESS;
@@ -66,10 +65,10 @@ public class AnimalDaoImplementation implements AnimalDao {
             while (rs.next()) {
                 int id = rs.getInt("anm_id");
                 double weight = rs.getDouble("weight");
-                java.sql.Date x = rs.getDate("dateOfDeath");
+                String dod = rs.getString("dateOfDeath");
                 int farm = rs.getInt("farm");
                 list.add(
-                        new Animal(id, weight, new Date(x.getDay(), x.getMonth(), x.getYear()), farm));
+                        new Animal(id, weight, dod, farm));
             }
             return list;
         } catch (SQLException e) {
