@@ -2,8 +2,10 @@ package GrpcServer;
 
 import Domain.Animal;
 import Domain.AnimalPart;
+import Domain.HalfAnimalPackage;
 import slaughter.DTOAnimal;
 import slaughter.DTOAnimalPart;
+import slaughter.DTOHalfAnimalPackage;
 
 import java.util.ArrayList;
 
@@ -51,5 +53,25 @@ public class DtoFactory {
 
     public static AnimalPart toAnimalPart(DTOAnimalPart x) {
         return new AnimalPart(x.getName(), x.getWeight(), x.getAnimalId());
+    }
+
+    public static HalfAnimalPackage toHalfAnimalPackage(DTOHalfAnimalPackage x){
+        return new HalfAnimalPackage(x.getId());
+    }
+
+    public static DTOHalfAnimalPackage toDtoHalfAnimalPackage(HalfAnimalPackage x)
+    {
+        return DTOHalfAnimalPackage.newBuilder()
+                .setId(x.getHalf_package_id())
+                .build();
+    }
+
+    public  static ArrayList<DTOHalfAnimalPackage> toDtoHalfAnimalPackages(ArrayList<HalfAnimalPackage> packages)
+    {
+        ArrayList<DTOHalfAnimalPackage> x = new ArrayList<>();
+        for (int i = 0; i < packages.size(); i++) {
+            x.add(toDtoHalfAnimalPackage(packages.get(i)));
+        }
+        return x;
     }
 }

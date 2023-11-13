@@ -60,6 +60,37 @@ message PutAnimalPartRes{
   string resp=1;
 }
 
+
+message DTOHalfAnimalPackage{
+  int32 id = 1;
+}
+
+message GetHalfAnimalPackageReq{
+  int32 id = 1;
+}
+
+message GetHalfAnimalPackageRes{
+  DTOHalfAnimalPackage ominous = 1;
+}
+
+message GetHalfAnimalPackagesReq{
+
+}
+
+message GetHalfAnimalPackagesRes{
+  repeated DTOHalfAnimalPackage ominous = 1;
+}
+
+message PutHalfAnimalPackageReq{
+  DTOHalfAnimalPackage ominous = 1;
+}
+
+message PutHalfAnimalPackageRes{
+  string resp = 1;
+}
+
+
+
 service SlaughterService{
   rpc getAnimal(GetAnimalReq) returns (GetAnimalRes);
 
@@ -70,4 +101,9 @@ service SlaughterService{
   rpc getAnimalParts(GetAnimalPartsReq) returns (GetAnimalPartsRes);
 
   rpc putAnimalPart(PutAnimalPartReq) returns (PutAnimalPartRes);
+
+  rpc getHalfAnimalPackage(GetHalfAnimalPackageReq) returns (GetHalfAnimalPackageRes);
+  rpc getHalfAnimalPackages(GetHalfAnimalPackagesReq) returns (GetHalfAnimalPackagesRes);
+  rpc putHalfAnimalPackage(PutHalfAnimalPackageReq) returns (PutHalfAnimalPackageRes);
+
 }
