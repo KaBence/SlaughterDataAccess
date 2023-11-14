@@ -3,9 +3,11 @@ package GrpcServer;
 import Domain.Animal;
 import Domain.AnimalPart;
 import Domain.HalfAnimalPackage;
+import Domain.OneKindAnimalPackage;
 import slaughter.DTOAnimal;
 import slaughter.DTOAnimalPart;
 import slaughter.DTOHalfAnimalPackage;
+import slaughter.DTOOneKindAnimalPackage;
 
 import java.util.ArrayList;
 
@@ -71,6 +73,27 @@ public class DtoFactory {
         ArrayList<DTOHalfAnimalPackage> x = new ArrayList<>();
         for (int i = 0; i < packages.size(); i++) {
             x.add(toDtoHalfAnimalPackage(packages.get(i)));
+        }
+        return x;
+    }
+
+    public static OneKindAnimalPackage toOneKindAnimalPackage(DTOOneKindAnimalPackage x){
+        return new OneKindAnimalPackage(x.getId(), x.getType());
+    }
+
+    public static DTOOneKindAnimalPackage toDtoOneKindAnimalPackage(OneKindAnimalPackage x)
+    {
+        return DTOOneKindAnimalPackage.newBuilder()
+                .setId(x.getOne_package_id())
+                .setType(x.getPartType())
+                .build();
+    }
+
+    public  static ArrayList<DTOOneKindAnimalPackage> toDtoOneKindAnimalPackages(ArrayList<OneKindAnimalPackage> packages)
+    {
+        ArrayList<DTOOneKindAnimalPackage> x = new ArrayList<>();
+        for (int i = 0; i < packages.size(); i++) {
+            x.add(toDtoOneKindAnimalPackage(packages.get(i)));
         }
         return x;
     }
