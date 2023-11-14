@@ -31,8 +31,8 @@ public class OneKindAnimalPackageDaoImplementation implements OneKindAnimalPacka
         } else {
             try (Connection connection = getConnection()){
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO onekindpackage(parttype, package_id) VALUES(?,?)");
-                ps.setInt(1, oneKindAnimalPackage.getOne_package_id());
-                ps.setString(2, oneKindAnimalPackage.getPartType());
+                ps.setString(1, oneKindAnimalPackage.getPartType());
+                ps.setInt(2, oneKindAnimalPackage.getOne_package_id());
                 ps.executeUpdate();
                 return DataBaseConnection.SUCCESS;
             }
