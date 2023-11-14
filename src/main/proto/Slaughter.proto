@@ -9,6 +9,7 @@ message DTOAnimal{
   double weight = 2;
   string dod = 3;
   int32 farm = 4;
+
 }
 
 message GetAnimalReq{

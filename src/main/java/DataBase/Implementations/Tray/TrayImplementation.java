@@ -125,8 +125,9 @@ public class TrayImplementation  implements TrayDao {
                 int trayId=rs.getInt("tray_id");
                 int oneKinfOfPackageId= rs.getInt("OneKindPackege_id");
                 int halfAnAnimalPackageId= rs.getInt("HalfAnAnimalPackage_id");
+                boolean cont= rs.getBoolean("contaminated");
 
-                animalPartsFromTheSameTray.add(new AnimalPart(itemId,itemName,weight,animalId,trayId, oneKinfOfPackageId, halfAnAnimalPackageId));
+                animalPartsFromTheSameTray.add(new AnimalPart(itemId,itemName,weight,animalId,trayId, oneKinfOfPackageId, halfAnAnimalPackageId, cont));
             }
             return animalPartsFromTheSameTray;
         } catch (SQLException e) {

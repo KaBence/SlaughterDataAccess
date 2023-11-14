@@ -20,7 +20,7 @@ public class AnimalPart {
         this.trayId=trayId;
         this.HalfAnAnimalPackageId= halfAnAnimalPackageId;
         this.OneKindPackageId= oneKindPackageId;
-        contaminated=cont;
+        this.contaminated=cont;
     }
 
     public AnimalPart(String name, double weight, int animalId, int trayId, int oneKindPackageId, int halfAnAnimalPackageId) {
@@ -59,5 +59,9 @@ public class AnimalPart {
 
     public int getTrayId() {
         return trayId;
+    }
+
+    public boolean isContaminated() {
+        return contaminated;
     }
 }
