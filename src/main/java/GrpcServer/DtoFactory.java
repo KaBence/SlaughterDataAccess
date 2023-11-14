@@ -6,6 +6,8 @@ import Domain.Tray;
 import slaughter.DTOAnimal;
 import slaughter.DTOAnimalPart;
 import slaughter.DTOTray;
+import Domain.HalfAnimalPackage;
+import slaughter.DTOHalfAnimalPackage;
 
 import java.util.ArrayList;
 
@@ -25,8 +27,6 @@ public class DtoFactory {
         return DTOTray.newBuilder()
                 .setId(x.getId())
                 .setMaxWeight(x.getMaxWeight())
-                .setOneKindPackage(x.getOneKindPackageId())
-                .setHalfAnAnimalPackage(x.getHalfAnAnimalPackageId())
                 .build();
     }
 
@@ -42,7 +42,7 @@ public class DtoFactory {
         return new Animal (x.getWeight(), x.getDod(), x.getFarm());
     }
     public static Tray toTray(DTOTray x){
-        return new Tray(x.getMaxWeight(), x.getOneKindPackage(), x.getOneKindPackage());
+        return new Tray(x.getMaxWeight());
 
     }
 
@@ -53,6 +53,8 @@ public class DtoFactory {
                 .setWeight(x.getWeight())
                 .setAnimalId(x.getAnimalId())
                 .setTrayId(x.getTrayId())
+                .setHalfAnAnimalPackageId(x.getHalfAnAnimalPackageId())
+                .setOnePackageId(x.getOneKindPackageId())
                 .build();
     }
 
@@ -67,6 +69,25 @@ public class DtoFactory {
 
     public static AnimalPart toAnimalPart(DTOAnimalPart x) {
 
-        return new AnimalPart(x.getName(), x.getWeight(), x.getAnimalId(), x.getTrayId());
+        return new AnimalPart(x.getName(), x.getWeight(), x.getAnimalId(), x.getTrayId(), x.getOnePackageId(), x.getHalfAnAnimalPackageId());
+    }
+    public static HalfAnimalPackage toHalfAnimalPackage(DTOHalfAnimalPackage x){
+        return new HalfAnimalPackage(x.getId());
+    }
+
+    public static DTOHalfAnimalPackage toDtoHalfAnimalPackage(HalfAnimalPackage x)
+    {
+        return DTOHalfAnimalPackage.newBuilder()
+                .setId(x.getHalf_package_id())
+                .build();
+    }
+
+    public  static ArrayList<DTOHalfAnimalPackage> toDtoHalfAnimalPackages(ArrayList<HalfAnimalPackage> packages)
+    {
+        ArrayList<DTOHalfAnimalPackage> x = new ArrayList<>();
+        for (int i = 0; i < packages.size(); i++) {
+            x.add(toDtoHalfAnimalPackage(packages.get(i)));
+        }
+        return x;
     }
 }

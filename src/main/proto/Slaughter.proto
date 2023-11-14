@@ -42,6 +42,8 @@ message DTOAnimalPart{
   double weight = 3;
   int32 animalId = 4;
   int32 trayId= 5;
+  int32 onePackageId=6;
+  int32 halfAnAnimalPackageId=7;
 }
 
 
@@ -60,6 +62,34 @@ message PutAnimalPartReq{
 message PutAnimalPartRes{
   string resp=1;
 }
+message DTOHalfAnimalPackage{
+  int32 id = 1;
+}
+
+message GetHalfAnimalPackageReq{
+  int32 id = 1;
+}
+
+message GetHalfAnimalPackageRes{
+  DTOHalfAnimalPackage ominous = 1;
+}
+
+message GetHalfAnimalPackagesReq{
+
+}
+
+message GetHalfAnimalPackagesRes{
+  repeated DTOHalfAnimalPackage ominous = 1;
+}
+
+message PutHalfAnimalPackageReq{
+  DTOHalfAnimalPackage ominous = 1;
+}
+
+message PutHalfAnimalPackageRes{
+  string resp = 1;
+}
+
 
 message DTOTray{
   int32 id=1;
@@ -81,6 +111,7 @@ message PutTrayReq{
 }
 message PutTrayRes{
   string resp=1;
+  DTOAnimalPart animalPart=2;
 }
 message GetTraysReq{
 
@@ -89,6 +120,15 @@ message GetTraysReq{
 message GetTraysRes{
   repeated DTOTray ominous=1;
 }
+message GetStuffForPackageReq{
+  int32 trayId= 1;
+  int32 animalPartId= 2;
+  int32 packageId= 3;
+}
+message GetStuffForPackageRes{
+  string resp = 1;
+}
+
 service SlaughterService{
   rpc getAnimal(GetAnimalReq) returns (GetAnimalRes);
 
@@ -102,4 +142,9 @@ service SlaughterService{
   rpc getTray(GetTrayReq) returns(GetTrayRes);
   rpc putTray(PutTrayReq) returns(PutTrayRes);
   rpc getTrays(GetTraysReq) returns(GetTraysRes);
+  rpc getStuffForPackages(GetStuffForPackageReq) returns(GetStuffForPackageRes);
+  rpc getHalfAnimalPackage(GetHalfAnimalPackageReq) returns (GetHalfAnimalPackageRes);
+  rpc getHalfAnimalPackages(GetHalfAnimalPackagesReq) returns (GetHalfAnimalPackagesRes);
+  rpc putHalfAnimalPackage(PutHalfAnimalPackageReq) returns (PutHalfAnimalPackageRes);
+
 }

@@ -101,7 +101,7 @@ public class TrayImplementation  implements TrayDao {
                 double maxWeight= rs.getDouble("maxWeight");
                 int oneKindPackageId= rs.getInt("OneKindPackege_id");
                 int HalfAnAnimalPackage= rs.getInt("HalfAnAnimalPackage_id");
-                trays.add(new Tray(trayId, maxWeight,oneKindPackageId, HalfAnAnimalPackage));
+                trays.add(new Tray(trayId, maxWeight));
             }
             return trays;
         } catch (SQLException e) {
@@ -123,8 +123,10 @@ public class TrayImplementation  implements TrayDao {
                 double weight= rs.getDouble("weight");
                 int animalId=rs.getInt("anm_id");
                 int trayId=rs.getInt("tray_id");
+                int oneKinfOfPackageId= rs.getInt("OneKindPackege_id");
+                int halfAnAnimalPackageId= rs.getInt("HalfAnAnimalPackage_id");
 
-                animalPartsFromTheSameTray.add(new AnimalPart(itemId,itemName,weight,animalId,trayId));
+                animalPartsFromTheSameTray.add(new AnimalPart(itemId,itemName,weight,animalId,trayId, oneKinfOfPackageId, halfAnAnimalPackageId));
             }
             return animalPartsFromTheSameTray;
         } catch (SQLException e) {

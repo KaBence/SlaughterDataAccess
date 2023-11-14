@@ -57,8 +57,10 @@ public class AnimalPartDaoImplementation implements AnimalPartDao {
                 double weight = rs.getDouble("weight");
                 int anId = rs.getInt("anm_id");
                 int trayId= rs.getInt("tray_id");
+                int oneKindPackageId= rs.getInt("OneKindPackege_id");
+                int halfAnAnimalPackage= rs.getInt("HalfAnAnimalPackage_id");
                 list.add(
-                        new AnimalPart(id, name, weight, anId, trayId));
+                        new AnimalPart(id, name, weight, anId, trayId, oneKindPackageId, halfAnAnimalPackage));
             }
             return list;
         } catch (SQLException e) {

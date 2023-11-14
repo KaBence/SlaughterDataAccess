@@ -6,20 +6,26 @@ public class AnimalPart {
     private double weight;
     private int animalId;
     private int trayId;
+    private int HalfAnAnimalPackageId;
+    private int OneKindPackageId;
 
-    public AnimalPart(int id, String name, double weight, int animalId, int trayId) {
+    public AnimalPart(int id, String name, double weight, int animalId, int trayId, int oneKindPackageId, int halfAnAnimalPackageId) {
         this.id = id;
         this.name = name;
         this.weight = weight;
         this.animalId = animalId;
         this.trayId=trayId;
+        this.HalfAnAnimalPackageId= halfAnAnimalPackageId;
+        this.OneKindPackageId= oneKindPackageId;
     }
 
-    public AnimalPart(String name, double weight, int animalId, int trayId) {
+    public AnimalPart(String name, double weight, int animalId, int trayId, int oneKindPackageId, int halfAnAnimalPackageId) {
         this.name = name;
         this.weight = weight;
         this.animalId = animalId;
-        this.trayId=trayId;
+
+        this.OneKindPackageId= oneKindPackageId;
+        this.HalfAnAnimalPackageId= halfAnAnimalPackageId;
     }
 
     public int getId() {
@@ -34,6 +40,14 @@ public class AnimalPart {
     public String getName() {
         return name;
     }
+    public int getOneKindPackageId() {
+        return OneKindPackageId;
+    }
+
+    public int getHalfAnAnimalPackageId() {
+        return HalfAnAnimalPackageId;
+    }
+
 
     public int getAnimalId() {
         return animalId;
