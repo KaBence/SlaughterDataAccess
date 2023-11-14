@@ -90,7 +90,21 @@ message PutHalfAnimalPackageRes{
 }
 
 
+message RecallReq{
+  int32 id=1;
+}
 
+message RecallRes{
+  string res=1;
+}
+
+message GetContaminatedReq{
+
+}
+
+message GetContaminatedRes{
+  repeated DTOAnimal ominous=1;
+}
 service SlaughterService{
   rpc getAnimal(GetAnimalReq) returns (GetAnimalRes);
 
@@ -106,4 +120,7 @@ service SlaughterService{
   rpc getHalfAnimalPackages(GetHalfAnimalPackagesReq) returns (GetHalfAnimalPackagesRes);
   rpc putHalfAnimalPackage(PutHalfAnimalPackageReq) returns (PutHalfAnimalPackageRes);
 
+
+  rpc recall(RecallReq) returns (RecallRes);
+  rpc getContaminated(GetContaminatedReq) returns (GetContaminatedRes);
 }

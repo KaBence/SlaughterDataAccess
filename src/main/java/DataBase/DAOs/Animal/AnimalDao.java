@@ -9,4 +9,6 @@ public interface AnimalDao
     String saveAnimal(Animal animal);
     Animal getAnimal(int id);
     ArrayList<Animal> getAllAnimals();
+
+    ArrayList<Animal> getContaminatedAnimals();
 }
