@@ -181,6 +181,26 @@ public class SlaughterGrpcServiceImplementation extends SlaughterServiceGrpc.Sla
     }
 
     @Override
+    public void recall(RecallReq req,StreamObserver<RecallRes> responseObserver){
+        String x=animalPartDao.recallAnimal(req.getId());
+        RecallRes res=RecallRes.newBuilder().setRes(x).build();
+
+
+        responseObserver.onNext(res);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getContaminated(GetContaminatedReq req,StreamObserver<GetContaminatedRes> responseObserver){
+        ArrayList<Animal> animals=animalDao.getContaminatedAnimals();
+
+        GetContaminatedRes res=GetContaminatedRes.newBuilder().addAllOminous(toDtoAnimals(animals)).build();
+
+        responseObserver.onNext(res);
+        responseObserver.onCompleted();
+    }
+
+    @Override
     public void getOneKindAnimalPackage(GetOneKindAnimalPackageReq request, StreamObserver<GetOneKindAnimalPackageRes> responseObserver) {
         OneKindAnimalPackage x = oneKindAnimalPackageDao.getOneKindAnimalPackage(request.getId());
         GetOneKindAnimalPackageRes res = GetOneKindAnimalPackageRes.newBuilder()

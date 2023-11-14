@@ -32,10 +32,11 @@ public class AnimalPartDaoImplementation implements AnimalPartDao {
             return DataBaseConnection.MANDATORY;
         } else {
             try (Connection connection = getConnection()) {
-                PreparedStatement ps = connection.prepareStatement("INSERT INTO AnimalPart(anm_pt_name,weight, anm_id) VALUES(?,?,?)");
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO AnimalPart(anm_pt_name,weight, anm_id,contaminated) VALUES(?,?,?,?)");
                 ps.setString(1, animalPart.getName());
                 ps.setDouble(2, animalPart.getWeight());
                 ps.setInt(3, animalPart.getAnimalId());
+                ps.setBoolean(4,false);
                 ps.executeUpdate();
                 return DataBaseConnection.SUCCESS;
             } catch (SQLException e) {
@@ -59,13 +60,32 @@ public class AnimalPartDaoImplementation implements AnimalPartDao {
                 int trayId= rs.getInt("tray_id");
                 int oneKindPackageId= rs.getInt("OneKindPackege_id");
                 int halfAnAnimalPackage= rs.getInt("HalfAnAnimalPackage_id");
+                boolean contaminated=rs.getBoolean("contaminated");
                 list.add(
-                        new AnimalPart(id, name, weight, anId, trayId, oneKindPackageId, halfAnAnimalPackage));
+                        new AnimalPart(id, name, weight, anId, trayId, oneKindPackageId, halfAnAnimalPackage, contaminated));
+
             }
             return list;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public String recallAnimal(int id) {
+        try (Connection connection=getConnection()){
+            PreparedStatement ps=connection.prepareStatement("Update animalpart set contaminated=true where anm_id=?");
+            ps.setInt(1,id);
+            ps.executeUpdate();
+
+            PreparedStatement ps1=connection.prepareStatement("Update animal set contaminated=true where anm_id=?");
+            ps1.setInt(1,id);
+            ps1.executeUpdate();
+            return DataBaseConnection.SUCCESS;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return DataBaseConnection.ERROR;
         }
     }
 }
