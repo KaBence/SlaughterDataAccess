@@ -1,11 +1,17 @@
 package GrpcServer;
 
+import DataBase.DAOs.Package.HalfAnimalPackageDAo;
+import DataBase.DAOs.Package.OneKindAnimalPackageDao;
 import DataBase.Implementations.Animal.AnimalDaoImplementation;
 import DataBase.Implementations.AnimalPart.AnimalPartDaoImplementation;
 import DataBase.Implementations.Tray.TrayImplementation;
+import DataBase.Implementations.Package.HalfAnimalPackageDaoImplementation;
+import DataBase.Implementations.Package.OneKindAnimalPackageDaoImplementation;
 import Domain.Animal;
 import Domain.AnimalPart;
 import Domain.Tray;
+import Domain.HalfAnimalPackage;
+import Domain.OneKindAnimalPackage;
 import io.grpc.stub.StreamObserver;
 import slaughter.*;
 import DataBase.DAOs.Package.HalfAnimalPackageDAo;
@@ -24,6 +30,7 @@ public class SlaughterGrpcServiceImplementation extends SlaughterServiceGrpc.Sla
     private AnimalPartDaoImplementation animalPartDao;
     private TrayImplementation trayDao;
     private HalfAnimalPackageDAo halfAnimalPackageDAo;
+    private OneKindAnimalPackageDao oneKindAnimalPackageDao;
 
 
 
@@ -35,6 +42,7 @@ public class SlaughterGrpcServiceImplementation extends SlaughterServiceGrpc.Sla
         this.allTrays= new ArrayList<>();
         this.halfAnimalPackageDAo = new HalfAnimalPackageDaoImplementation();
         this.trayDao= new TrayImplementation();
+        this.oneKindAnimalPackageDao = new OneKindAnimalPackageDaoImplementation();
     }
 
     @Override
@@ -52,7 +60,7 @@ public class SlaughterGrpcServiceImplementation extends SlaughterServiceGrpc.Sla
     public void getAnimal(GetAnimalReq request, StreamObserver<GetAnimalRes> responseObserver) {
         Animal x = animalDao.getAnimal(request.getId());
         GetAnimalRes res = GetAnimalRes.newBuilder()
-                .addOminous(toDtoAnimal(x))
+                .setOminous(toDtoAnimal(x))
                 .build();
 
         responseObserver.onNext(res);
@@ -137,6 +145,7 @@ public class SlaughterGrpcServiceImplementation extends SlaughterServiceGrpc.Sla
         responseObserver.onNext(res);
         responseObserver.onCompleted();
     }
+
     @Override
     public void getHalfAnimalPackage(GetHalfAnimalPackageReq request, StreamObserver<GetHalfAnimalPackageRes> responseObserver) {
         HalfAnimalPackage x = halfAnimalPackageDAo.getHalfAnimalPackage(request.getId());
@@ -170,5 +179,40 @@ public class SlaughterGrpcServiceImplementation extends SlaughterServiceGrpc.Sla
         responseObserver.onNext(res);
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void getOneKindAnimalPackage(GetOneKindAnimalPackageReq request, StreamObserver<GetOneKindAnimalPackageRes> responseObserver) {
+        OneKindAnimalPackage x = oneKindAnimalPackageDao.getOneKindAnimalPackage(request.getId());
+        GetOneKindAnimalPackageRes res = GetOneKindAnimalPackageRes.newBuilder()
+                .setOminous(toDtoOneKindAnimalPackage(x))
+                .build();
+        responseObserver.onNext(res);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getOneKindAnimalPackages(GetOneKindAnimalPackagesReq request, StreamObserver<GetOneKindAnimalPackagesRes> responseObserver) {
+        ArrayList<OneKindAnimalPackage> x = oneKindAnimalPackageDao.getOneKindAnimalPackages();
+        GetOneKindAnimalPackagesRes res = GetOneKindAnimalPackagesRes.newBuilder()
+                .addAllOminous(toDtoOneKindAnimalPackages(x))
+                .build();
+        responseObserver.onNext(res);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void putOneKindAnimalPackage(PutOneKindAnimalPackageReq request, StreamObserver<PutOneKindAnimalPackageRes> responseObserver) {
+        OneKindAnimalPackage x = toOneKindAnimalPackage(request.getOminous());
+
+        String database = oneKindAnimalPackageDao.saveOneKindAnimalPackage(x);
+        System.out.println(x.getOne_package_id());
+        PutOneKindAnimalPackageRes res = PutOneKindAnimalPackageRes.newBuilder()
+                .setResp(database)
+                .build();
+
+        responseObserver.onNext(res);
+        responseObserver.onCompleted();
+    }
+
 }
 
