@@ -7,4 +7,6 @@ import java.util.ArrayList;
 public interface AnimalPartDao {
     String saveAnimalPart(AnimalPart animalPart);
     ArrayList<AnimalPart> getAllAnimalParts();
+
+    String recallAnimal(int id);
 }

@@ -34,10 +34,11 @@ public class AnimalDaoImplementation implements AnimalDao {
             return DataBaseConnection.MANDATORY;
         } else {
             try (Connection connection = getConnection()) {
-                PreparedStatement ps = connection.prepareStatement("INSERT INTO Animal(weight,dateOfDeath,farm) VALUES(?,?,?)");
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO Animal(weight,dateOfDeath,farm,contaminated) VALUES(?,?,?,?)");
                 ps.setDouble(1, animal.getWeight());
                 ps.setDate(2, convertToSQLDate(animal.getDod()));
                 ps.setInt(3, animal.getFarm());
+                ps.setBoolean(4,false);
                 ps.executeUpdate();
                 return DataBaseConnection.SUCCESS;
             } catch (SQLException e) {
@@ -69,8 +70,29 @@ public class AnimalDaoImplementation implements AnimalDao {
                 double weight = rs.getDouble("weight");
                 String dod = rs.getString("dateOfDeath");
                 int farm = rs.getInt("farm");
-                list.add(
-                        new Animal(id, weight, dod, farm));
+                boolean contaminated= rs.getBoolean("contaminated");
+                list.add(new Animal(id, weight, dod, farm,contaminated));
+            }
+            return list;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public ArrayList<Animal> getContaminatedAnimals() {
+        ArrayList<Animal> list = new ArrayList<>();
+        try (Connection connection = getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(
+                    "SELECT * FROM Animal where contaminated=true");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("anm_id");
+                double weight = rs.getDouble("weight");
+                String dod = rs.getString("dateOfDeath");
+                int farm = rs.getInt("farm");
+                boolean contaminated= rs.getBoolean("contaminated");
+                list.add(new Animal(id, weight, dod, farm,contaminated));
             }
             return list;
         } catch (SQLException e) {

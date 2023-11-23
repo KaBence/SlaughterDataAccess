@@ -2,10 +2,13 @@ package GrpcServer;
 
 import Domain.Animal;
 import Domain.AnimalPart;
+import Domain.Tray;
 import Domain.HalfAnimalPackage;
 import Domain.OneKindAnimalPackage;
 import slaughter.DTOAnimal;
 import slaughter.DTOAnimalPart;
+import slaughter.DTOTray;
+import Domain.HalfAnimalPackage;
 import slaughter.DTOHalfAnimalPackage;
 import slaughter.DTOOneKindAnimalPackage;
 
@@ -14,12 +17,19 @@ import java.util.ArrayList;
 public class DtoFactory {
 
 
+
     public static DTOAnimal toDtoAnimal(Animal x) {
         return DTOAnimal.newBuilder()
                 .setId(x.getId())
                 .setWeight(x.getWeight())
                 .setDod(x.getDod())
                 .setFarm(x.getFarm())
+                .build();
+    }
+    public  static DTOTray toDtoTray(Tray x){
+        return DTOTray.newBuilder()
+                .setId(x.getId())
+                .setMaxWeight(x.getMaxWeight())
                 .build();
     }
 
@@ -34,6 +44,10 @@ public class DtoFactory {
     public static Animal toAnimal(DTOAnimal x) {
         return new Animal (x.getWeight(), x.getDod(), x.getFarm());
     }
+    public static Tray toTray(DTOTray x){
+        return new Tray(x.getMaxWeight());
+
+    }
 
     public static DTOAnimalPart toDtoAnimalPart(AnimalPart x) {
         return DTOAnimalPart.newBuilder()
@@ -41,6 +55,9 @@ public class DtoFactory {
                 .setName(x.getName())
                 .setWeight(x.getWeight())
                 .setAnimalId(x.getAnimalId())
+                .setTrayId(x.getTrayId())
+                .setHalfAnAnimalPackageId(x.getHalfAnAnimalPackageId())
+                .setOnePackageId(x.getOneKindPackageId())
                 .build();
     }
 
@@ -54,9 +71,10 @@ public class DtoFactory {
     }
 
     public static AnimalPart toAnimalPart(DTOAnimalPart x) {
-        return new AnimalPart(x.getName(), x.getWeight(), x.getAnimalId());
-    }
 
+
+        return new AnimalPart(x.getName(), x.getWeight(), x.getAnimalId(), x.getTrayId(), x.getOnePackageId(), x.getHalfAnAnimalPackageId());
+    }
     public static HalfAnimalPackage toHalfAnimalPackage(DTOHalfAnimalPackage x){
         return new HalfAnimalPackage(x.getId());
     }

@@ -2,14 +2,12 @@ package DataBase.Implementations.Package;
 
 import DataBase.DAOs.Package.HalfAnimalPackageDAo;
 import DataBase.DataBaseConnection;
-import Domain.Animal;
 import Domain.HalfAnimalPackage;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class HalfAnimalPackageDaoImplementation implements HalfAnimalPackageDAo {
-
     public HalfAnimalPackageDaoImplementation() {
         try {
             DriverManager.registerDriver(new org.postgresql.Driver());
@@ -68,5 +66,25 @@ public class HalfAnimalPackageDaoImplementation implements HalfAnimalPackageDAo 
             }
         }
         return null;
+    }
+    //put animalPartIntoPackage
+    public String putAnimalPartIntoHalfAnAnimalPackage(int trayId,int animalpartId, int packageId){
+        if (packageId==0){
+            return  DataBaseConnection.MANDATORY;
+        }
+        if(animalpartId==0){
+            return DataBaseConnection.MANDATORY;
+        }
+        else{   try(Connection connection= getConnection()) {
+            PreparedStatement ps= connection.prepareStatement("UPDATE AnimalPart SET HalfAnAnimalPackage_id=? WHERE p_id=?");
+            ps.setInt(1, packageId);
+            ps.setInt(2, animalpartId);
+            ps.executeUpdate();
+            return DataBaseConnection.SUCCESS;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        }
     }
 }
