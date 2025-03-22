@@ -9,7 +9,7 @@ message DTOAnimal{
   double weight = 2;
   string dod = 3;
   int32 farm = 4;
-
+  bool cont=5;
 }
 
 message GetAnimalReq{
@@ -42,9 +42,10 @@ message DTOAnimalPart{
   string name = 2;
   double weight = 3;
   int32 animalId = 4;
-  int32 trayId= 5;
-  int32 onePackageId=6;
-  int32 halfAnAnimalPackageId=7;
+  bool cont=5;
+  int32 trayId= 6;
+  int32 onePackageId=7;
+  int32 halfAnAnimalPackageId=8;
 }
 
 

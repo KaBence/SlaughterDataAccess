@@ -24,6 +24,7 @@ public class DtoFactory {
                 .setWeight(x.getWeight())
                 .setDod(x.getDod())
                 .setFarm(x.getFarm())
+                .setCont(x.isContaminated())
                 .build();
     }
     public  static DTOTray toDtoTray(Tray x){
@@ -58,6 +59,7 @@ public class DtoFactory {
                 .setTrayId(x.getTrayId())
                 .setHalfAnAnimalPackageId(x.getHalfAnAnimalPackageId())
                 .setOnePackageId(x.getOneKindPackageId())
+                .setCont(x.isContaminated())
                 .build();
     }
 
